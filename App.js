@@ -25,6 +25,7 @@ export default function App() {
         filmes.map((filme) => (
           <View key={filme._id} style={styles.filmeContainer}>
             <Text style={styles.titulo}>{filme.attributes.titulo}</Text>
+            <Text style={styles.subtitulo}>{filme.attributes.subtitulo}</Text>
             <Text style={styles.sinopse}>{filme.attributes.sinopse}</Text>
           </View>
         ))
