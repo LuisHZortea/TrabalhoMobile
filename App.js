@@ -70,6 +70,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: '#5c453e',
   },
+  subtitulo: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#5c453e',
+  },
   sinopse: {
     fontSize: 16,
     color: '#5c453e',
