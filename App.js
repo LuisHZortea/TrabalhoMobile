@@ -1,19 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Filme from './src/filmes/filmes';
 import estilo from './src/filmes/styles';
 
 export default function App() {
   const [filmes, setFilmes] = useState([]);
 
-  useEffect(() => {
-    const baseURL = 'https://api.otaviolube.com/api/filmes?populate=*';
+  const baseURL = 'https://api.otaviolube.com/api/filmes?populate=*';
 
+  useEffect(() => {
     fetch(baseURL)
-      .then((data) => data.json())
-      .then((objeto) => {
-        console.log(objeto);
-        setFilmes(objeto.data);
+      .then(response => response.json())
+      .then(data => {
+        setFilmes(data.data);
+      })
+      .catch(error => {
+        console.log(error);
       });
   }, []);
 
@@ -22,18 +24,13 @@ export default function App() {
       <View style={estilo.header}>
         <Text style={estilo.headerText}>Filmes</Text>
       </View>
-      {filmes.length > 0 ? (
-        filmes.map((filme) => (
-          <View key={filme._id} style={estilo.filmeContainer}>
-            <Text style={estilo.titulo}>{filme.attributes.titulo}</Text>
-            <Text style={estilo.subtitulo}>{filme.attributes.subtitulo}</Text>
-            <Text style={estilo.sinopse}>{filme.attributes.sinopse}</Text>
-          </View>
-        ))
-      ) : (
-        <Text style={estilo.loading}>Carregando...</Text>
-      )}
-      <StatusBar style="auto" />
+      <View style={estilo.filmes}>
+        {filmes.length > 0 ? (
+          filmes.map(filme => <Filme data={filme} key={filme.id} />)
+        ) : (
+          <Text style={estilo.loading}>Carregando...</Text>
+        )}
+      </View>
     </View>
   );
 }
